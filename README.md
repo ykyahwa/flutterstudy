@@ -1069,7 +1069,7 @@ class SelectionScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  // "Nope" 문자열과 함께 이전 화면으로 돌아갑니다.
+                  // "Nope" 문자열과 함께 이전 화면으로 돌아.
                 },
                 child: Text('Nope.'),
               ),
