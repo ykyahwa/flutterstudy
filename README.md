@@ -2,7 +2,7 @@
 
 
 
-Assets와 Image 추가하기
+I. Assets와 Image 추가하기
 
 
 
@@ -206,7 +206,7 @@ flutter:
 
 
 
-네비게이터
+II. 네비게이터
 
 
 
@@ -1365,7 +1365,8 @@ class DetailScreen extends StatelessWidget {
 
 
 
-Advanced UI
+III. Advanced UI - Sliver
+
 
 슬라이버는 스크롤 가능 영역의 일부임. Sliver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
 
