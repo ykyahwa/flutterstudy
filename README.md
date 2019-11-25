@@ -4,7 +4,11 @@
 
 Assets와 Image 추가하기
 
-1. asset
+
+
+
+asset
+
 플루터앱은 코드와 에셋(asset 또는 resources)으로 구성됨
 
 asset의 종류
@@ -13,7 +17,9 @@ asset의 종류
 3) icons
 4) images (JPEG, WebP, GIF, animated WebP/GIF, PNG, BMP, and WBMP)
 
-2. Assets 지정
+
+Assets 지정
+
  `pubspec.yaml`을 사용하여 지정함. `pubspec.yaml` 파일에 있는 명시적 경로 (파일에 상대적인 경로)로 지정됨. assets의 선언 순서는 문제되지 않음.
  
 ```
@@ -75,7 +81,7 @@ Asset 로드
 
 
 
-[`AssetBundle`][] 객체를 통해 asset에 엑세스할 수 있음. text asset(`loadString()`) 과 이미지 asset (`load()`) 모두 로드 가능하고`pubspec.yaml` 파일에 경로가 지정되어야 함.
+`AssetBundle` 객체를 통해 asset에 엑세스할 수 있음. text asset(`loadString()`) 과 이미지 asset (`load()`) 모두 로드 가능하고`pubspec.yaml` 파일에 경로가 지정되어야 함.
 
 text assets 
 
@@ -193,6 +199,15 @@ flutter:
   assets:
     - packages/fancy_backgrounds/backgrounds/background1.png
 ```
+
+
+
+
+
+
+
+네비게이터
+
 
 
 
@@ -454,6 +469,7 @@ class SignUpPage extends StatelessWidget {
 
 
 
+
 <네비게이터 실습1> 새로운 화면으로 이동하고, 되돌아오기
 
 <img src= 'https://flutter.dev/images/cookbook/navigation-basics.gif'>
@@ -599,6 +615,8 @@ class SecondRoute extends StatelessWidget {
   }
 }
 ```
+
+
 
 
 <네비게이터 실습2> Named route로의 화면 전환
@@ -764,6 +782,9 @@ class SecondScreen extends StatelessWidget {
 }
 ```
 
+
+
+
 <네비게이터 실습3> 새로운 화면으로 데이터 보내기
 
 
@@ -839,6 +860,9 @@ class DetailScreen extends StatelessWidget {
   }
 }
 ```
+
+
+
 4. 상세 화면으로 이동하면서 데이터를 전달함.
 
 예제에서는 사용자가 Todo 리스트 중 하나를 선택했을 때, DetailsScreen으로 화면 전환하고 동시에 DetailsScreen에 Todo를 전달.
@@ -951,6 +975,8 @@ class DetailScreen extends StatelessWidget {
 ```
 
 
+
+
 <네비게이터 실습4> 이전 화면에 데이터 반환하기
 
 <img src = 'https://flutter.dev/images/cookbook/returning-data.gif'>
@@ -1032,7 +1058,7 @@ class SelectionScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  // "Yep" 문자열과 함께 이전 화면으로 돌아갑니다...
+                  // "Yep" 문자열과 함께 이전 화면으로 돌아감.
                 },
                 child: Text('Yep!'),
               ),
@@ -1332,6 +1358,11 @@ class DetailScreen extends StatelessWidget {
 }
 
 ```
+
+
+
+
+
 Advanced UI
 슬라이버는 스크롤 가능 영역의 일부임. Silver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
 
@@ -1339,7 +1370,7 @@ SliverList , SliverGrid 및 SliverAppBar를 포함하여 Flutter에서 슬라이
 
 <img src = 'https://miro.medium.com/max/488/1*D0lutEyy9ouTE7TVgG4IXw.gif'>
 
-SiverList 예제 코드
+SliverList 예제 코드
 ```
 // Explicit list of children. No efficiency savings here since the
 // children are already constructed.
