@@ -94,7 +94,7 @@ current BuildContext로부터는  `DefaultAssetBundle.of()`을 사용하는 게 
 `rootBundle`을 사용하면 직접 assets를 로드할 수 있음.
 
 사례
-available, you can use `rootBundle`을 사용하면 직접 assets를 로드할 수 있음.
+`rootBundle`을 사용하면 직접 assets를 로드할 수 있음.
 
 ```dart
 import 'dart:async' show Future;
