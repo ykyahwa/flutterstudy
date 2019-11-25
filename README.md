@@ -710,7 +710,7 @@ onPressed: () {
 
 4. 첫 번째 화면으로 돌아가기
 
-첫 번째 페이지로 되돌아가기 위해 Navigator.pop() 함수를 사용.
+첫 번째 페이지로 되돌아가기 위해 `Navigator.pop()`을 사용.
 
 ```
 // SecondScreen 위젯의 콜백
@@ -728,8 +728,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Named routes Demo',
-    // "/"을 앱이 시작하게 될 route로 지정합니다. 본 예제에서는 FirstScreen 위젯이 첫 번째 페이지가
-    // 될 것입니다.
+    // "/"을 앱이 시작하게 될 route로 지정. 본 예제에서는 FirstScreen 위젯이 첫 번째 페이지임.
     initialRoute: '/',
     routes: {
       // When we navigate to the "/" route, build the FirstScreen Widget
