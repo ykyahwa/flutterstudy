@@ -507,7 +507,7 @@ class FirstRoute extends StatelessWidget {
         child: RaisedButton(
           child: Text('Open route'),
           onPressed: () {
-            // 눌렀을 때 두 번째 route로 이동합니다.
+            // 눌렀을 때 두 번째 route로 이동.
           },
         ),
       ),
@@ -525,7 +525,7 @@ class SecondRoute extends StatelessWidget {
       body: Center(
         child: RaisedButton(
           onPressed: () {
-            // 눌렀을 때 첫 번째 route로 되돌아 갑니다.
+            // 눌렀을 때 첫 번째 route로 되돌아 .
           },
           child: Text('Go back!'),
         ),
@@ -1161,7 +1161,7 @@ class SelectionButton extends StatelessWidget {
 
   // SelectionScreen을 띄우고 navigator.pop으로부터 결과를 기다리는 메서드
   _navigateAndDisplaySelection(BuildContext context) async {
-    // Navigator.push는 Future를 반환합니다. Future는 선택 창에서 
+    // Navigator.push는 Future를 반환함. Future는 선택 창에서 
     // Navigator.pop이 호출된 이후 완료될 .
     final result = await Navigator.push(
       context,
