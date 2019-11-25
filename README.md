@@ -20,7 +20,7 @@ asset의 종류
 
 Assets 지정
 
- `pubspec.yaml`을 사용하여 지정함. `pubspec.yaml` 파일에 있는 명시적 경로 (파일에 상대적인 경로)로 지정됨. assets의 선언 순서는 문제되지 않음.
+ `pubspec.yaml`을 사용하여 지정함. `pubspec.yaml` 파일에 있는 명시적 경로 (파일에 상대적인 경로)로 지정됨. assets의 명시 순서는 문제되지 않음.
  
 ```
   .../pubspec.yaml
