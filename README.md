@@ -91,7 +91,7 @@ text assets
 current BuildContext로부터는  `DefaultAssetBundle.of()`을 사용하는 게 권장되고 `DefaultAssetBundle.of()`은 예를 들어 JSON file과 같은 경우 우회적으로 로드할 때 사용가능함. 
 
 
-`rootBundle`을 사용하면 직접 assets를 로드할 수 있음.
+
 
 사례
 `rootBundle`을 사용하면 직접 assets를 로드할 수 있음.
