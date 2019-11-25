@@ -1332,8 +1332,8 @@ class DetailScreen extends StatelessWidget {
 }
 
 ```
-
-슬라이버는 스크롤 가능 영역의 일부입니다. Silver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
+Advanced UI
+슬라이버는 스크롤 가능 영역의 일부임. Silver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
 
 SliverList , SliverGrid 및 SliverAppBar를 포함하여 Flutter에서 슬라이버를 구현하는 방법에 대한 자세한 내용은 Medium 's Flutter Publication 포스팅 Slivers , DeMystified 에서 자세하게 설명하고 있음. ( https://medium.com/flutter/slivers-demystified-6ff68ab0296f)
 
