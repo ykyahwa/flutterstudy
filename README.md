@@ -137,7 +137,7 @@ Future<String> loadAsset() async {
 장치 픽셀 비율이 1.8 인 장치에서는`.../2.0x/my_icon.png` 이 채택됨.
 장치 픽셀 비율이 2.7 인 경우 자산`.../3.0x/my_icon.png`이 채택됨.
 
-렌더링 된 이미지의 너비와 높이가 `Image`  위젯에 지정되지 않은 경우 공칭 해상도는 기본 자산과 동일한 화면 공간을 차지하도록 더 높은 해상도로 자산의 크기를 조정하는 데 사용됨. 즉,  `.../my_icon.png`가  72 x 72 픽셀 인 경우 `.../3.0x/my_icon.png`는 216 x 216 픽셀이어야 함. 그러나 너비와 높이를 지정하지 않으면 둘 다 72x72 픽셀로 렌더링됨.
+렌더링 된 이미지의 너비와 높이가 `Image`  위젯에 지정되지 않은 경우 해상도는 기본 asset과 동일한 화면 공간을 차지하도록 더 높은 해상도로 자산의 크기를 조정하는 데 사용됨. 즉,  `.../my_icon.png`가  72 x 72 픽셀 인 경우 `.../3.0x/my_icon.png`는 216 x 216 픽셀이어야 함. 그러나 너비와 높이를 지정하지 않으면 둘 다 72x72 픽셀로 렌더링됨.
 
 
 
@@ -145,7 +145,7 @@ Future<String> loadAsset() async {
 
 이미지를 로드하려면 `AssetImage`  위젯의 build 메소드에서 클래스를 사용.
 
-예를 들어 아래와 같은 코드에서 배경 이미지를 로드 할 수 있음.
+예를 들어 아래와 같은 코드에서 이미지를 로드할 수 있음.
 
 ```dart
 Widget build(BuildContext context) {
@@ -216,14 +216,14 @@ flutter:
 최근에 방문한 페이지와 함께 이전 페이지 위에 시각적으로 오버레이를 사용하여 위젯 계층 구조 맨 위에 네비게이터가 있음. 이 패턴을 사용하면 네비게이터가 오버레이에서 위젯을 움직여 한 페이지에서 다른 페이지로 전환해서 표시할 수 있음.
 
 네비게이터 사용
-모바일 앱은 일반적으로 '화면'또는 '페이지'라는 전체 화면 요소를 통해 콘텐츠를 표시함. Flutter에서는 이러한 요소를 경로라고하며 네비게이터 위젯으로 관리합니다 . 네비게이터는 Route 객체의 스택을 관리하고 `Navigator.push` 및 `Navigator.pop` 과 같은 스택 관리 방법을 제공함.
+모바일 앱은 일반적으로 '화면'또는 '페이지'라는 전체 화면 요소를 통해 콘텐츠를 표시함. Flutter에서는 이러한 요소를 경로라고 하며 네비게이터 위젯으로 관리함 . 네비게이터는 Route 객체의 스택을 관리하고 `Navigator.push` 및 `Navigator.pop` 과 같은 스택 관리 방법을 제공함.
 
-Android와 같은 특정 플랫폼에서 시스템 UI는 사용자가 애플리케이션 스택에서 이전 경로로 다시 이동할 수있는 뒤로 버튼 제공함. 이러한 뒤로 버튼이 자동 생성되지 않는 경우에는 `Scaffold.appBar` 속성에 사용되는 `AppBar`를 사용하여 뒤로 버튼을 자동으로 추가할 수 있음.
+Android와 같은 특정 플랫폼에서 시스템 UI는 사용자가 애플리케이션 스택에서 이전 경로로 다시 이동할 수있는 뒤로 버튼을 제공함. 이러한 뒤로 버튼이 자동 생성되지 않는 경우에는 `Scaffold.appBar` 속성에 사용되는 `AppBar`를 사용하여 뒤로 버튼을 자동으로 추가할 수 있음.
 
 전체 화면 경로 표시
 네비게이터를 직접 만들 수 있지만 `WidgetsApp` 또는 `MaterialApp` 위젯으로 만든 네비게이터를 사용하는 것이 가장 일반적임. `Navigator.of` 로 해당 네비게이터를 참조 가능함.
 
-`MaterialApp`을 사용하는 것이 가장 간단함.  `home: `다음에는 하단의 경로를 표시함. 
+`MaterialApp`을 사용하는 것이 가장 간단함.  `home: ` 다음에는 하단의 경로를 표시함. 
 
 ```
 void main() {
@@ -258,7 +258,7 @@ Navigator.push(context, MaterialPageRoute<void>(
 Navigator.pop(context);
 ```
 
-스캐폴드는 자동으로 앱바에 '뒤로' 버튼을 추가하기 때문에 스캐폴드가 있는 경로에서 네비게이터를 팝업시키는 위젯을 제공할 필요는 없음. 뒤로 버튼을 누르면 `Navigator.pop` 이 호출됨. Android에서는 시스템 뒤로 버튼을 눌러도 동일한 작업을 수행함.
+스캐폴드는 자동으로 앱바에 '뒤로' 버튼을 추가하기 때문에 스캐폴드가 있는 경로에서 네비게이터를 팝업시키는 위젯을 제공할 필요는 없음. 뒤로 버튼을 누르면 `Navigator.pop` 이 호출됨.
 
 네비게이터 경로 사용
 경로 이름은 경로와 유사한 구조를 사용함. (예 : '/ a / b / c'). 앱의 경로 이름은 기본적으로 '/'임.
@@ -286,8 +286,7 @@ Navigator.pushNamed(context, '/b');
 
 경로는 값을 반환 할 수 있음. 경로를 푸시하여 사용자에게 값을 요청하면 pop 메소드의 결과 매개 변수를 통해 값을 리턴할 수 있음. 경로를 푸시하는 메소드는 Future를 리턴함. Future 값은 pop 메소드의 result 매개 변수임.
 
-예를 들어 사용자에게 '확인'을 눌러 작업을 확인하도록 요청하려면 Navigator.pushawait 의 결과를 얻을 수 있음.
-
+예를 들어 사용자에게 '확인'을 눌러 작업을 확인하도록 요청하는 경우 Navigator.push를 사용할 수 있음
 ```
 bool value = await Navigator.push(context, MaterialPageRoute<bool>(
   builder: (BuildContext context) {
@@ -309,9 +308,9 @@ bool value = await Navigator.push(context, MaterialPageRoute<bool>(
 PopupMenuButton 및 DropdownButton은 팝업 경로를 생성하는 위젯임. 이 위젯은 PopupRoute의 내부 서브 클래스를 작성하고 Navigator의 push 및 pop 메소드를 사용하여 이를 표시함.
 
 맞춤 경로
-PopupRoute , ModalRoute 또는 PageRoute와 같이 라우트 클래스 중 하나의 자체 서브 클래스를 작성하여 라우트, 색상 및 동작 및 애니메이션 전환을 제어 할 수 있음.
+PopupRoute , ModalRoute 또는 PageRoute와 같이 라우트 클래스 중 하나의 자체 서브 클래스를 작성하여 라우트, 색상 및 동작 및 애니메이션 전환을 제어할 수 있음.
 
-PageRouteBuilder의 클래스는 사용자 지정 경로를 정의 할 수 있음. 
+PageRouteBuilder의 클래스는 사용자 지정 경로를 정의할 수 있음. 
 
 예제
 
@@ -474,7 +473,7 @@ class SignUpPage extends StatelessWidget {
 
 <img src= 'https://flutter.dev/images/cookbook/navigation-basics.gif'>
 
-대부분의 앱은 여러 종류의 정보를 보여주기 위해 여러 화면을 갖고 있dma. 예를 들어, 어떤 앱이 상품 목록을 보여주는 화면을 갖고 있다고 한다면, 사용자가 한 상품을 선택했을 때 새로운 화면에서 해당 상품의 상세 정보를 볼 수 있음.
+대부분의 앱은 여러 종류의 정보를 보여주기 위해 여러 화면을 갖고 있음. 예를 들어, 어떤 앱이 상품 목록을 보여주는 화면을 갖고 있다고 한다면, 사용자가 한 상품을 선택했을 때 새로운 화면에서 해당 상품의 상세 정보를 볼 수 있음.
 용어: Flutter에서 screen 과 page 는 route 로 불림.
 
 Route는 Android의 Activity, iOS의 ViewController와 동일함. Flutter에서는 Route 역시 위젯임.
@@ -624,13 +623,13 @@ class SecondRoute extends StatelessWidget {
 <img src= 'https://flutter.dev/images/cookbook/navigation-basics.gif'>
 
 만약 앱의 다른 많은 영역에서 동일한 화면으로 이동하고자 한다면, 중복된 코드가 생기게 됩니다. 이러한 경우 named route를 정의하여 화면 전환에 사용하는 방법이 있음.
-Named route를 사용하기 위해 Navigator.pushNamed 함수를 사용할 수 있음. 
+Named route를 사용하기 위해 `Navigator.pushNamed` 를 사용할 수 있음. 
 
 
 1. 두 개의 화면 만들기.
 2. Route 정의하기.
-3. Navigator.pushNamed를 사용하여 두 번째 화면으로 전환하기.
-4. Navigator.pop을 사용하여 첫 번째 화면으로 돌아가기.
+3. `Navigator.pushNamed`를 사용하여 두 번째 화면으로 전환하기.
+4. `Navigator.pop`을 사용하여 첫 번째 화면으로 돌아가기.
 
 1. 두 개의 화면 만들기
 우선 두 개 이상의 화면이 있어야 함. 
@@ -733,9 +732,9 @@ void main() {
     initialRoute: '/',
     routes: {
       // When we navigate to the "/" route, build the FirstScreen Widget
-      // "/" Route로 이동하면, FirstScreen 위젯을 생성합니다.
+      // "/" Route로 이동하면, FirstScreen 위젯을 생성.
       '/': (context) => FirstScreen(),
-      // "/second" route로 이동하면, SecondScreen 위젯을 생성합니다.
+      // "/second" route로 이동하면, SecondScreen 위젯을 생성.
       '/second': (context) => SecondScreen(),
     },
   ));
@@ -771,7 +770,7 @@ class SecondScreen extends StatelessWidget {
       body: Center(
         child: RaisedButton(
           onPressed: () {
-            // 현재 route를 스택에서 제거함으로써 첫 번째 스크린으로 되돌아 갑니다.
+            // 현재 route를 스택에서 제거함으로써 첫 번째 스크린으로 되돌아 감.
             Navigator.pop(context);
           },
           child: Text('Go back!'),
@@ -789,7 +788,7 @@ class SecondScreen extends StatelessWidget {
 
 
 종종 새로운 화면으로 단순히 이동하는 것 뿐만 아니라 데이터를 넘겨주어야 할 때도 있음. 예를 들어, 사용자가 선택한 아이템에 대한 정보를 같이 넘겨주는 경우가 있음.
-예제에서는 Todo 리스트를 만들고 Todo를 선택하면 새로운 화면(위젯)으로 이동하면서 선택한 to do에 대한 정보를 표시함.
+예제에서는 Todo 리스트를 만들고 Todo를 선택하면 새로운 화면(위젯)으로 이동하면서 선택한 Todo에 대한 정보를 표시함.
 1. Todo 클래스를 정의함.
 2. Todo 리스트를 표시함.
 3. Todo에 대한 상세 정보를 보여줄 수 있는 화면을 생성.
@@ -819,8 +818,11 @@ final todos = List<Todo>.generate(
         'A description of what needs to be done for Todo $i',
       ),
 );
-ListView를 사용하여 Todo 리스트 보여주기
-content_copy
+
+
+//ListView를 사용하여 Todo 리스트 보여주기
+
+
 ListView.builder(
   itemCount: todos.length,
   itemBuilder: (context, index) {
@@ -1160,7 +1162,7 @@ class SelectionButton extends StatelessWidget {
   // SelectionScreen을 띄우고 navigator.pop으로부터 결과를 기다리는 메서드
   _navigateAndDisplaySelection(BuildContext context) async {
     // Navigator.push는 Future를 반환합니다. Future는 선택 창에서 
-    // Navigator.pop이 호출된 이후 완료될 것입니다.
+    // Navigator.pop이 호출된 이후 완료될 .
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SelectionScreen()),
@@ -1364,16 +1366,16 @@ class DetailScreen extends StatelessWidget {
 
 
 Advanced UI
-슬라이버는 스크롤 가능 영역의 일부임. Silver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
 
-SliverList , SliverGrid 및 SliverAppBar를 포함하여 Flutter에서 슬라이버를 구현하는 방법에 대한 자세한 내용은 Medium 's Flutter Publication 포스팅 Slivers , DeMystified 에서 자세하게 설명하고 있음. ( https://medium.com/flutter/slivers-demystified-6ff68ab0296f)
+슬라이버는 스크롤 가능 영역의 일부임. Sliver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
+
+SliverList , SliverGrid 및 SliverAppBar를 포함하여 Flutter에서의 Sliver 구현방법에 대한 자세한 내용은 Medium 's Flutter Publication 포스팅 Slivers , DeMystified 에서 자세하게 설명하고 있음. ( https://medium.com/flutter/slivers-demystified-6ff68ab0296f)
 
 <img src = 'https://miro.medium.com/max/488/1*D0lutEyy9ouTE7TVgG4IXw.gif'>
 
-SliverList 예제 코드
+SliverList 예제 
 ```
-// Explicit list of children. No efficiency savings here since the
-// children are already constructed.
+
 SliverList(
     delegate: SliverChildListDelegate(
       [
@@ -1398,7 +1400,7 @@ SliverList(
 );
 ```
 
-SliverGrid 예제 코드
+SliverGrid 예제 
 ```
 SliverGrid(
   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -1451,7 +1453,7 @@ CustomScrollView(
 
 <img src = https://miro.medium.com/max/640/1*g5kTqAzL6FTJKnFictwJ5w.gif>
 
-
+예제 
 ```
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
