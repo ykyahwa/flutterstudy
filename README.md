@@ -36,7 +36,7 @@ asset의 종류
 
 3. Asset 번들과 Asset 변형
 Asset은 Asset Bundle이라는 특수 아카이브에 배치됨. 이 번들은 런타임시 읽을 수 있음.
-빌드 프로세스는 자산 변형이라는 개념을 지원합니다. `pubspec.yaml`에 assets 경로가 지정되면 빌드 프로세스는 인접한 하위 디렉토리에서 이름이 같은 파일을 찾습니다. 그런 다음 이러한 파일은 지정된 자산과 함께 자산 번들에 포함됩니다.
+빌드 프로세스는 자산 변형이라는 개념을 지원함. `pubspec.yaml`에 assets 경로가 지정되면 빌드 프로세스는 인접한 하위 디렉토리에서 이름이 같은 파일을 찾음.  이 파일은 지정된 asset과 함께 asset 번들에 포함됨.
 
 
 예를 들어서 응용 프로그램 디렉토리에 다음 파일이있는 경우
@@ -131,11 +131,12 @@ Future<String> loadAsset() async {
 장치 픽셀 비율이 1.8 인 장치에서는`.../2.0x/my_icon.png` 이 채택됨.
 장치 픽셀 비율이 2.7 인 경우 자산`.../3.0x/my_icon.png`이 채택됨.
 
-렌더링 된 이미지의 너비와 높이가 `Image`  위젯에 지정되지 않은 경우 공칭 해상도는 기본 자산과 동일한 화면 공간을 차지하도록 더 높은 해상도로 자산의 크기를 조정하는 데 사용됨. 즉, 72 x 72가 `.../my_icon.png`  72 x 72 픽셀 인 경우 `.../3.0x/my_icon.png`의 경우 216 x 216 픽셀이어야 함. 그러나 너비와 높이를 지정하지 않으면 둘 다 72x72 픽셀로 렌더링됨.
+렌더링 된 이미지의 너비와 높이가 `Image`  위젯에 지정되지 않은 경우 공칭 해상도는 기본 자산과 동일한 화면 공간을 차지하도록 더 높은 해상도로 자산의 크기를 조정하는 데 사용됨. 즉,  `.../my_icon.png`가  72 x 72 픽셀 인 경우 `.../3.0x/my_icon.png`는 216 x 216 픽셀이어야 함. 그러나 너비와 높이를 지정하지 않으면 둘 다 72x72 픽셀로 렌더링됨.
 
 
 
 이미지 로딩
+
 이미지를 로드하려면 `AssetImage`  위젯의 build 메소드에서 클래스를 사용.
 
 예를 들어 아래와 같은 코드에서 배경 이미지를 로드 할 수 있음.
@@ -147,13 +148,13 @@ Widget build(BuildContext context) {
 ```
 
 
-default asset 번들을 사용하는 모든 것은 이미지를 로드할 때 해상도 인식을 상속합니다.
+default asset 번들을 사용하는 모든 것은 이미지를 로드할 때 해상도 인식을 상속함.
 하위 클래스인 `ImageStream`,`ImageCache`와 같은 클래스를 사용할 때도 상속함.
 
 
 packages에서 이미지 
 
-[package][] dependency에서 이미지를 로드하려면 `package`도 `AssetImage`에 같이 표시해주어야 함.
+`package dependency`에서 이미지를 로드하려면 `package`도 `AssetImage`에 같이 표시해주어야 함.
 
 예를 들어 `my_icons` package에서 이미지를 로드하는 경우 
 
@@ -169,7 +170,7 @@ packages에서 이미지
 ```dart
  AssetImage('icons/heart.png', package: 'my_icons')
 ```
-와 같이 패키지도 같이 표시해주어야 한다.
+와 같이 패키지도 같이 표시해주어야 함.
 
  package assets 번들링
 
@@ -184,7 +185,7 @@ packages에서 이미지
   .../lib/backgrounds/background2.png
   .../lib/backgrounds/background3.png
 ```
-`pubspec.yaml` 에서 다음과 같이 지정해주어야 한다.
+`pubspec.yaml` 에서 다음과 같이 지정해주어야 함.
 
 
 ```yaml
@@ -192,162 +193,6 @@ flutter:
   assets:
     - packages/fancy_backgrounds/backgrounds/background1.png
 ```
-
-
-
-## Sharing assets with the underlying platform
-
-Flutter assets are readily available to platform code via
-AssetManager on Android and NSBundle on iOS.
-
-### Android
-
-On Android the assets are available via the [AssetManager API][].
-The lookup key used in, for instance [openFd][], is obtained from
-`lookupKeyForAsset` on [PluginRegistry.Registrar][] or
-`getLookupKeyForAsset` on [FlutterView][].
-`PluginRegistry.Registrar` is available when developing a plugin
-while `FlutterView` would be the choice when developing an
-app including a platform view.
-
-As an example, suppose you have specified the following
-in your pubspec.yaml
-
-```yaml
-flutter:
-  assets:
-    - icons/heart.png
-```
-
-This reflects the following structure in your Flutter app.
-
-```
-  .../pubspec.yaml
-  .../icons/heart.png
-  ...etc.
-```
-
-To access `icons/heart.png` from your Java plugin code,
-do the following:
-
-```java
-AssetManager assetManager = registrar.context().getAssets();
-String key = registrar.lookupKeyForAsset("icons/heart.png");
-AssetFileDescriptor fd = assetManager.openFd(key);
-```
-
-### iOS
-
-On iOS the assets are available via the [mainBundle][].
-The lookup key used in, for instance [pathForResource:ofType:][],
-is obtained from `lookupKeyForAsset` or `lookupKeyForAsset:fromPackage:`
-on [FlutterPluginRegistrar][], or `lookupKeyForAsset:` or
-`lookupKeyForAsset:fromPackage:` on [FlutterViewController][].
-`FlutterPluginRegistrar` is available when developing
-a plugin while `FlutterViewController` would be the choice
-when developing an app including a platform view.
-
-As an example, suppose you have the Flutter setting from above.
-
-To access `icons/heart.png` from your Objective-C plugin code you
-would do the following:
-
-```objective-c
-NSString* key = [registrar lookupKeyForAsset:@"icons/heart.png"];
-NSString* path = [[NSBundle mainBundle] pathForResource:key ofType:nil];
-```
-
-For a more complete example, see the implementation of the
-Flutter [video_player plugin][].
-
-## Platform assets
-
-There are other occasions to work with assets in the
-platform projects directly. Below are two common cases
-where assets are used before the Flutter framework is
-loaded and running.
-
-### Updating the app icon
-
-Updating a Flutter application's launch icon works the same
-way as updating launch icons in native Android or iOS applications.
-
-![Launch icon](/images/assets-and-images/icon.png)
-
-#### Android
-
-In your Flutter project's root directory, navigate to
-`.../android/app/src/main/res`. The various bitmap resource
-folders such as `mipmap-hdpi` already contain placeholder images named
-`ic_launcher.png`. Replace them with your desired assets
-respecting the recommended icon size per screen density
-as indicated by the [Android Developer Guide][].
-
-![Android icon location](/images/assets-and-images/android-icon-path.png)
-
-{{site.alert.note}}
-  If you rename the .png files, you must also update the
-  correspondingname in your `AndroidManifest.xml`'s
-  `<application>` tag's `android:icon` attribute.
-{{site.alert.end}}
-
-#### iOS
-
-In your Flutter project's root directory,
-navigate to `.../ios/Runner`. The
-`Assets.xcassets/AppIcon.appiconset` directory already contains
-placeholder images. Replace them with the appropriately
-sized images as indicated by their filename as dictated by the
-Apple [Human Interface Guidelines][].
-Keep the original file names.
-
-![iOS icon location](/images/assets-and-images/ios-icon-path.png)
-
-### Updating the launch screen
-
-<p align="center">
-  <img src="/images/assets-and-images/launch-screen.png" alt="Launch screen" />
-</p>
-
-Flutter also uses native platform mechanisms to draw
-transitional launch screens to your Flutter app while the
-Flutter framework loads. This launch screen persists until
-Flutter renders the first frame of your application.
-
-{{site.alert.note}}
-  This implies that if you don't call [runApp()][] in the
-  `main()` function of your app (or more specifically, if you don't call
-  [`window.render()`][] in response to [`window.onDrawFrame`][]),
-  the launch screen persists forever.
-{{site.alert.end}}
-
-#### Android
-
-To add a "splash screen" to your Flutter application,
-navigate to `.../android/app/src/main`.
-In `res/drawable/launch_background.xml`,
-use this [layer list drawable][] XML to customize
-the look of your launch screen. The existing template provides
-an example of adding an image to the middle of a white splash
-screen in commented code. You can uncomment it or use other
-[drawables][] to achieve the intended effect.
-
-#### iOS
-
-To add an image to the center of your "splash screen",
-navigate to `.../ios/Runner`.
-In `Assets.xcassets/LaunchImage.imageset`,
-drop in images named `LaunchImage.png`,
-`LaunchImage@2x.png`, `LaunchImage@3x.png`.
-If you use different filenames,
-update the `Contents.json` file in the same directory.
-
-You can also fully customize your launch screen storyboard
-in Xcode by opening `.../ios/Runner.xcworkspace`.
-Navigate to `Runner/Runner` in the Project Navigator and
-drop in images by opening `Assets.xcassets` or do any
-customization using the Interface Builder in
-`LaunchScreen.storyboard`.
 
 
 
@@ -361,7 +206,7 @@ customization using the Interface Builder in
 Android와 같은 특정 플랫폼에서 시스템 UI는 사용자가 애플리케이션 스택에서 이전 경로로 다시 이동할 수있는 뒤로 버튼 제공함. 이러한 뒤로 버튼이 자동 생성되지 않는 경우에는 `Scaffold.appBar` 속성에 사용되는 `AppBar`를 사용하여 뒤로 버튼을 자동으로 추가할 수 있음.
 
 전체 화면 경로 표시
-네비게이터를 직접 만들 수 있지만 `WidgetsApp` 또는 `MaterialApp` 위젯으로 만든 네비게이터를 사용하는 것이 가장 일반적임. `Navigator.of` 로 해당 네비게이터를 참조가능함.
+네비게이터를 직접 만들 수 있지만 `WidgetsApp` 또는 `MaterialApp` 위젯으로 만든 네비게이터를 사용하는 것이 가장 일반적임. `Navigator.of` 로 해당 네비게이터를 참조 가능함.
 
 `MaterialApp`을 사용하는 것이 가장 간단함.  `home: `다음에는 하단의 경로를 표시함. 
 
@@ -398,7 +243,7 @@ Navigator.push(context, MaterialPageRoute<void>(
 Navigator.pop(context);
 ```
 
-스캐폴드는 자동으로 앱바에 '뒤로' 버튼을 추가하기 때문에 스캐 폴드가 있는 경로에서 네비게이터를 팝업시키는 위젯을 제공할 필요는 없음. 뒤로 버튼을 누르면 `Navigator.pop` 이 호출됨. Android에서는 시스템 뒤로 버튼을 눌러도 동일한 작업을 수행함.
+스캐폴드는 자동으로 앱바에 '뒤로' 버튼을 추가하기 때문에 스캐폴드가 있는 경로에서 네비게이터를 팝업시키는 위젯을 제공할 필요는 없음. 뒤로 버튼을 누르면 `Navigator.pop` 이 호출됨. Android에서는 시스템 뒤로 버튼을 눌러도 동일한 작업을 수행함.
 
 네비게이터 경로 사용
 경로 이름은 경로와 유사한 구조를 사용함. (예 : '/ a / b / c'). 앱의 경로 이름은 기본적으로 '/'임.
@@ -475,7 +320,7 @@ Navigator.push(context, PageRouteBuilder(
 
 
 중첩 네비게이터
-앱은 둘 이상의 네비게이터를 사용할 수 있습니다. 하나의 네비게이터를 다른 네비게이터 아래에 중첩하여 탭 내비게이션 등을 작성할 수 있음.
+앱은 둘 이상의 네비게이터를 사용할 수 있음. 하나의 네비게이터를 다른 네비게이터 아래에 중첩하여 탭 내비게이션 등을 작성할 수 있음.
 
 
 
@@ -609,7 +454,7 @@ class SignUpPage extends StatelessWidget {
 
 
 
-새로운 화면으로 이동하고, 되돌아오기
+<네비게이터 실습1> 새로운 화면으로 이동하고, 되돌아오기
 
 <img src= 'https://flutter.dev/images/cookbook/navigation-basics.gif'>
 
@@ -622,12 +467,13 @@ Route는 Android의 Activity, iOS의 ViewController와 동일함. Flutter에서�
 
 
 
-1. 두 개의 route를 생성합니다.
-2. Navigator.push()를 사용하여 두 번째 route로 전환합니다.
-3. Navigator.pop()을 사용하여 첫 번째 route로 되돌아 옵니다.
+1. 두 개의 route를 생성.
+2. Navigator.push()를 사용하여 두 번째 route로 전환.
+3. Navigator.pop()을 사용하여 첫 번째 route로 되돌아 옴.
 
 
-1. 두 개의 route를 생성합니다.
+1. 두 개의 route를 생성.
+
 우선 두 개의 route를 생성함. 
 예제에서는 첫 번째 route의 버튼을 누르면 두 번째 route로 화면 전환되며, 두 번째 route의 버튼을 누르면 첫 번째 route로 되돌아 옴.
 
@@ -673,7 +519,8 @@ class SecondRoute extends StatelessWidget {
 }
 ```
 
-2. Navigator.push()를 사용하여 두 번째 route로 전환합니다.
+2. Navigator.push()를 사용하여 두 번째 route로 전환.
+
 새로운 route로 전환하기 위해 Navigator.push() 메서드를 사용함. push() 메서드는 Route를 Navigator에 의해 관리되는 route 스택에 추가함. Route는 직접 생성하거나, 새로운 route로 이동시 MaterialPageRoute를 사용할 수 있음.
 
 
@@ -701,7 +548,7 @@ onPressed: () {
 완성된 예제
 
 ```
-content_copy
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -754,7 +601,7 @@ class SecondRoute extends StatelessWidget {
 ```
 
 
-Named route로의 화면 전환
+<네비게이터 실습2> Named route로의 화면 전환
 
 <img src= 'https://flutter.dev/images/cookbook/navigation-basics.gif'>
 
@@ -813,6 +660,7 @@ class SecondScreen extends StatelessWidget {
 ```
 
 2. Route 정의하기
+
  MaterialApp 생성자에 initialRoute와 routes 이름의 추가 프로퍼티를 제공하여 route를 정의함. initialRoute 프로퍼티는 앱의 시작점을 나타내는 route를 정의하고, routes 프로퍼티는 이용가능한 named route와 해당 route로 이동했을 때 빌드될 위젯을 정의함.
 
 ```
@@ -831,6 +679,7 @@ MaterialApp(
  주의: initialRoute를 사용한다면, home 프로퍼티를 정의하지 않음.
 
 3. 두 번째 화면으로 전환하기
+
 위젯과 route를 정의했다면, Navigator.pushNamed() 메서드로 화면 전환을 호출함. 이 함수는 Flutter에게 앞서 routes 테이블에 정의한 위젯을 생성하고 그 화면을 시작하도록 요청함.
 
 ```
@@ -842,6 +691,7 @@ onPressed: () {
 ```
 
 4. 첫 번째 화면으로 돌아가기
+
 첫 번째 페이지로 되돌아가기 위해 Navigator.pop() 함수를 사용.
 
 ```
@@ -914,7 +764,7 @@ class SecondScreen extends StatelessWidget {
 }
 ```
 
-새로운 화면으로 데이터 보내기
+<네비게이터 실습3> 새로운 화면으로 데이터 보내기
 
 
 종종 새로운 화면으로 단순히 이동하는 것 뿐만 아니라 데이터를 넘겨주어야 할 때도 있음. 예를 들어, 사용자가 선택한 아이템에 대한 정보를 같이 넘겨주는 경우가 있음.
@@ -994,7 +844,7 @@ class DetailScreen extends StatelessWidget {
 예제에서는 사용자가 Todo 리스트 중 하나를 선택했을 때, DetailsScreen으로 화면 전환하고 동시에 DetailsScreen에 Todo를 전달.
 
 
-사용자의 탭 동작을 감지하기 위해, ListTile 위젯에 onTap 콜백을 작성하고 onTap 콜백 내에서 다시 한 번 Navigator.push 메서드를 사용하.
+사용자의 탭 동작을 감지하기 위해, ListTile 위젯에 onTap 콜백을 작성하고 onTap 콜백 내에서 다시 한 번 Navigator.push 메서드를 사용.
 
 ```
 ListView.builder(
@@ -1101,7 +951,7 @@ class DetailScreen extends StatelessWidget {
 ```
 
 
-이전 화면에 데이터 반환하기
+<네비게이터 실습4> 이전 화면에 데이터 반환하기
 
 <img src = 'https://flutter.dev/images/cookbook/returning-data.gif'>
 
@@ -1110,11 +960,12 @@ class DetailScreen extends StatelessWidget {
 
 1. 홈 화면을 정의함.
 2. 선택 창을 띄우는 버튼을 추가.
-3. 두 개의 버튼을 가진 선택 창을 보여줍니다.
-4. 하나의 버튼을 클릭하면 선택 창을 닫습니다.
-5. 선택된 정보를 홈 화면의 snackbar에 보여줍니다.
+3. 두 개의 버튼을 가진 선택 창을 표시함.
+4. 하나의 버튼을 클릭하면 선택 창을 닫음.
+5. 선택된 정보를 홈 화면의 snackbar에 표시함.
 
 1. 홈 화면을 정의.
+
 예제에서는 홈 화면에서는 버튼 하나가 있고 버튼을 클릭하면 연동 창을 띄움.
 
 ```
@@ -1133,6 +984,7 @@ class HomeScreen extends StatelessWidget {
 ```
 
 2. 연동 창을 띄우는 버튼을 추가.
+
  SelectionButton을 만들고 사용자가 클릭했을 때, SelectionScreen을 띄움. SelectionScreen이 결과를 반환할 때까지 대기.
  
  ```
@@ -1149,11 +1001,11 @@ class SelectionButton extends StatelessWidget {
 
   // SelectionScreen을 띄우고 navigator.pop으로부터 결과를 기다리는 메서드
   _navigateAndDisplaySelection(BuildContext context) async {
-    // Navigator.push는 Future를 반환합니다. Future는 선택 창에서 
-    // Navigator.pop이 호출된 이후 완료될 것입니다.
+    // Navigator.push는 Future를 반환. Future는 선택 창에서 
+    // Navigator.pop이 호출된 이후 완료.
     final result = await Navigator.push(
       context,
-      // 다음 단계에서 SelectionScreen를 만들 것입니다.
+      // 다음 단계에서 SelectionScreen 만듬.
       MaterialPageRoute(builder: (context) => SelectionScreen()),
     );
   }
@@ -1227,6 +1079,7 @@ RaisedButton(
 ```
 
 5. 선택된 정보를 홈 화면의 snackbar에 표시함.
+
  예제에서는 결과 값을 보여줄 수 있도록 Snackbar를 띄우기 위해 SelectionButton의 _navigateAndDisplaySelection  메서드를 수정.
 
 ```
@@ -1335,7 +1188,7 @@ class SelectionScreen extends StatelessWidget {
 ```
 
 
-화면을 넘나드는 위젯 애니메이션
+<네비게이터 실습5>  화면을 넘나드는 위젯 애니메이션
 
 <img src = 'https://flutter.dev/images/cookbook/hero.gif'>
 
@@ -1345,7 +1198,8 @@ class SelectionScreen extends StatelessWidget {
 2. 첫 번째 화면에 Hero 위젯을 추가.
 3. 두 번째 화면에 Hero 위젯을 추가.
 
-1. 같은 이미지를 보여주는 2개의 화면을 만듭니다.
+1. 같은 이미지를 보여주는 2개의 화면을 만듬.
+
 이 예제에서는  첫 번째 화면에서 사용자가 이미지를 탭하면 두 번째 화면으로 전환되면서 애니메이션이 발생. 
 이 예제는 새로운 화면으로 이동하고, 되돌아오기와 탭 다루기를 사용함.
 
@@ -1393,7 +1247,7 @@ class DetailScreen extends StatelessWidget {
 두 화면을 하나의 애니메이션으로 연결하기 위해, 각 화면에 존재하는 Image 위젯을 Hero 위젯으로 감싸야 함. Hero 위젯에 2개의 인자를 넘겨주어야 함.
 
 `tag`는`Hero` 위젯을 식별하기 위한 객체로 양쪽 모두 동일한 값을 가져야 함.
-`child`는 화면 전환 시 애니메이션 효과를 적용할 위젯입니다.
+`child`는 화면 전환 시 애니메이션 효과를 적용할 위젯임.
 
 ```
 Hero(
@@ -1404,6 +1258,7 @@ Hero(
 );
 ```
 3. 두 번째 화면에 Hero 위젯을 추가함.
+
 첫 번째 화면과의 연동하기 위해, 두 번째 화면의 Image도 첫 번째 화면에 사용한 것과 동일한 tag를 사용한 Hero 위젯으로 감싸주어야 함. 두 번째 화면에 Hero 위젯을 적용하면, 화면 사이의 애니메이션이 동작함.
 
 ```
@@ -1478,12 +1333,9 @@ class DetailScreen extends StatelessWidget {
 
 ```
 
-슬라이 버는 스크롤 가능 영역의 일부입니다. 은색을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있습니다.
+슬라이버는 스크롤 가능 영역의 일부입니다. Silver을 사용하여 사용자 정의 스크롤 효과를 얻을 수 있음.
 
-SliverList , SliverGrid 및 SliverAppBar를 포함하여 Flutter에서 슬라이 버를 구현하는 방법에 대한 자세한 내용은 Medium 's Flutter Publication 에 대한 기사 인 Slivers , DeMystified 를 참조하십시오 .
-
-
-https://medium.com/flutter/slivers-demystified-6ff68ab0296f
+SliverList , SliverGrid 및 SliverAppBar를 포함하여 Flutter에서 슬라이버를 구현하는 방법에 대한 자세한 내용은 Medium 's Flutter Publication 포스팅 Slivers , DeMystified 에서 자세하게 설명하고 있음. ( https://medium.com/flutter/slivers-demystified-6ff68ab0296f)
 
 <img src = 'https://miro.medium.com/max/488/1*D0lutEyy9ouTE7TVgG4IXw.gif'>
 
